@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+    app-server:
+        image: venveo/craftplugindev
+        ports:
+            - "80:80"
+        volumes:
+            - '.:/var/www/plugins/pluginhandle'
+        environment:
+            DB_HOST: mysql-server
+            DB_NAME: dev_craftcms
+            DB_USER: craftcms
+            DB_PASS: Password1!
+            DB_PREFIX: craft_
+            TEST_EMAIL: youremail@gmail.com
+
+    mysql-server:
+        image: mysql:5.6
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./.docker/database:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: CraftPluginDev
+            MYSQL_DATABASE: dev_craftcms
+            MYSQL_PASSWORD: Password1!
+            MYSQL_USER: craftcms
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
